@@ -9,26 +9,28 @@ class HomeScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final ValueNotifier<int> currentIndex = useState(0);
-    final ValueNotifier<List<Map<DateTime, String>>> memoList = useState([]);
+    final ValueNotifier<List<Map<DateTime, String>>> _memoList = useState([]);
     final ValueNotifier<DateTime> _selectedDay = useState(DateTime.now());
 
     return Scaffold(
       bottomNavigationBar: HomeNavigation(currentIndex: currentIndex),
       body: currentIndex.value == 0
-          ? CalendarWidget(_selectedDay)
+          ? CalendarWidget(_selectedDay, _memoList.value)
           : Container(
               color: Colors.green,
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final memo = await Navigator.push(
+          final String text = await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => CalendarMemo(_selectedDay),
             ),
           );
-          if (memo != null) {
-            memoList.value.add(memo);
+          if (text != '') {
+            print(text);
+            final Map<DateTime, String> memo = {_selectedDay.value: text};
+            _memoList.value.add(memo);
           }
         },
         child: Icon(Icons.create),

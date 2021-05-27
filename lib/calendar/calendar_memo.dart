@@ -10,13 +10,17 @@ class CalendarMemo extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ValueNotifier<String> _text = useState('');
+
     return Scaffold(
       appBar: AppBar(
         title: Text(formatter.format(_selectedDate.value)),
         centerTitle: true,
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context, _text.value);
+            },
             child: Text(
               '完了',
               style: TextStyle(
@@ -28,6 +32,7 @@ class CalendarMemo extends HookWidget {
       ),
       body: TextField(
         maxLines: 50,
+        onChanged: (text) => _text.value = text,
       ),
     );
   }
