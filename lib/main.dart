@@ -1,52 +1,43 @@
-import 'package:flutter/material.dart';
-
-// Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:simple_calendar/intro/intro_slider_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(App());
+  await Firebase.initializeApp();
+
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
-/// We are using a StatefulWidget such that we only create the [Future] once,
-/// no matter how many times our widget rebuild.
-/// If we used a [StatelessWidget], in the event where [App] is rebuilt, that
-/// would re-initialize FlutterFire and make our application re-enter loading state,
-/// which is undesired.
-class App extends StatefulWidget {
-  // Create the initialization Future outside of `build`:
-  @override
-  _AppState createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  /// The future is part of the state of our widget. We should not call `initializeApp`
-  /// directly inside [build].
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          return Container(color: Colors.red);
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('シンプルかれんだー'),
-            ),
-          );
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Container(color: Colors.yellow);
-      },
+    return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: Main(),
     );
   }
 }
+
+class Main extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Builder(builder: (context) {
+        return IntroSliderScreen();
+      }),
+    );
+  }
+}
+
+// https://levelup.gitconnected.com/firebase-authentication-and-keeping-users-logged-in-with-provider-in-flutter-f1c66cdb1bc7
+// https://dribbble.com/shots/14340649-Task-Management-App-Design
+// https://medium.com/flutter-community/flutter-scalable-folder-files-structure-8f860faafebd
+// https://www.refactord.com/guides/riverpod-state-management-explained
