@@ -37,15 +37,17 @@ class CalendarWidget extends HookWidget {
             child: ListView(
               children: [
                 for (final Map<DateTime, String> memo in _memoList)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Card(
-                      child: ListTile(
-                        leading: FlutterLogo(),
-                        title: Text(memo[_selectedDay.value].toString()),
+                  // ignore: unnecessary_null_comparison
+                  if (memo[_selectedDay.value] != null)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        child: ListTile(
+                          leading: FlutterLogo(),
+                          title: Text(memo[_selectedDay.value].toString()),
+                        ),
                       ),
                     ),
-                  ),
               ],
             ),
           )
