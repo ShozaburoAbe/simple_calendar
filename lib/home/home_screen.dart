@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:simple_calendar/calendar/calendar_widget.dart';
+
+import 'home_navigation.dart';
 
 class HomeScreen extends HookWidget {
   @override
@@ -7,22 +10,15 @@ class HomeScreen extends HookWidget {
     final ValueNotifier<int> currentIndex = useState(0);
 
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex.value,
-        onTap: (index) => currentIndex.value = index,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
-            label: 'Chat',
-          ),
-        ],
-      ),
-      body: Container(
-        color: Colors.red,
+      bottomNavigationBar: HomeNavigation(currentIndex: currentIndex),
+      body: currentIndex.value == 0
+          ? CalendarWidget()
+          : Container(
+              color: Colors.green,
+            ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.create),
       ),
     );
   }
