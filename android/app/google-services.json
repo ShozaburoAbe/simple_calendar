@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "363295458027",
+    "project_id": "simple-calendar-c43b9",
+    "storage_bucket": "simple-calendar-c43b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363295458027:android:3ae69d4fa514c96edb34ae",
+        "android_client_info": {
+          "package_name": "com.example.simple_calendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "363295458027-f743cq3ckcq6rrkgist79medaj636snd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAno1CmuIC3t6hI1KC5cGNTGTLy7jEjea0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "363295458027-f743cq3ckcq6rrkgist79medaj636snd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
